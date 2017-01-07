@@ -1,0 +1,6 @@
+c:\users\oguz\documents\visual studio 2013\Projects\HospInfoSystem\HospInfoSystem\bin\HospInfoSystem.dll.config
+c:\users\oguz\documents\visual studio 2013\Projects\HospInfoSystem\HospInfoSystem\bin\HospInfoSystem.dll
+c:\users\oguz\documents\visual studio 2013\Projects\HospInfoSystem\HospInfoSystem\bin\HospInfoSystem.pdb
+c:\users\oguz\documents\visual studio 2013\Projects\HospInfoSystem\HospInfoSystem\obj\Debug\HospInfoSystem.csprojResolveAssemblyReference.cache
+c:\users\oguz\documents\visual studio 2013\Projects\HospInfoSystem\HospInfoSystem\obj\Debug\HospInfoSystem.dll
+c:\users\oguz\documents\visual studio 2013\Projects\HospInfoSystem\HospInfoSystem\obj\Debug\HospInfoSystem.pdb
