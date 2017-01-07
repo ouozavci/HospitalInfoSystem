@@ -59,6 +59,7 @@
   <ItemGroup>
     <Content Include="admin\manageDoctors.aspx" />
     <Content Include="admin\managePersonal.aspx" />
+    <Content Include="doctor\doctor_panel.aspx" />
     <Content Include="login\admin_login.aspx" />
     <Content Include="admin\admin_panel.aspx" />
     <Content Include="css\styleMain.css" />
@@ -81,6 +82,13 @@
     </Compile>
     <Compile Include="admin\managePersonal.aspx.designer.cs">
       <DependentUpon>managePersonal.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="doctor\doctor_panel.aspx.cs">
+      <DependentUpon>doctor_panel.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="doctor\doctor_panel.aspx.designer.cs">
+      <DependentUpon>doctor_panel.aspx</DependentUpon>
     </Compile>
     <Compile Include="login\admin_login.aspx.cs">
       <DependentUpon>admin_login.aspx</DependentUpon>
@@ -126,6 +134,9 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="personal\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
