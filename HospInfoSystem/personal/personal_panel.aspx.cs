@@ -41,7 +41,17 @@ namespace HospInfoSystem.personal
 
         protected void listDepartments_SelectedIndexChanged(object sender, EventArgs e)
         {
-            pnlDoctor.Visible = true;
+            if (!pnlDoctor.Visible) { pnlDoctor.Visible = true; }
+            else
+            {
+                pnlDoctor.Visible = false;
+                pnlDoctor.Visible = true;
+                pnlCalendar.Visible = false;
+                pnlHours.Visible = false;
+                pnlHastaTc.Visible = false;
+                pnlHastaForm.Visible = false;
+            }
+            
         }
 
         protected void listDoctors_SelectedIndexChanged(object sender, EventArgs e)
@@ -53,17 +63,19 @@ namespace HospInfoSystem.personal
             DropDownList list = sender as DropDownList;
             if (list != null)
                 list.Items.Insert(0, "Bir doktor seçiniz...");
+                list.Items[0].Value = "0";
         }
         protected void listDepartment_DataBound(object sender, EventArgs e)
         {
             DropDownList list = sender as DropDownList;
             if (list != null)
                 list.Items.Insert(0, "Randevu için bölüm seçiniz...");
+                list.Items[0].Value = "0";
         }
 
         protected void Calendar1_SelectionChanged(object sender, EventArgs e)
         {
-            DataView dv = (DataView)SqlDataSource4.Select(DataSourceSelectArguments.Empty);
+          
             rButtonsHours.Items[0].Text = "09:00";
             rButtonsHours.Items[1].Text = "10:00";
             rButtonsHours.Items[2].Text = "11:00";
@@ -94,15 +106,95 @@ namespace HospInfoSystem.personal
             rButtonsHours.Items[7].Selected = false;
             rButtonsHours.Items[8].Selected = false;
 
-
-            if(dv.Count>0)
+            DataView dv = (DataView)SqlDataSource4.Select(DataSourceSelectArguments.Empty);
                 foreach(DataRowView drow in dv){
-                  ListItem item = rButtonsHours.Items.FindByValue(drow["time"].ToString().Substring(0,5));
-                  item.Text+= "-"+drow["name"].ToString() + " " + drow["surname"].ToString();
-                  item.Enabled = false;
+                    ListItem item = rButtonsHours.Items.FindByValue(drow["time"].ToString().Substring(0,5));
+                    if (item != null)
+                    {
+                        item.Text += "-" + drow["name"].ToString() + " " + drow["surname"].ToString();
+                        item.Enabled = false;
+                    }
                 }
 
             pnlHours.Visible = true;
         }
+
+        protected void rButtonsHours_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            pnlHastaTc.Visible = true;
+        }
+
+        protected void btnSorgula_Click(object sender, EventArgs e)
+        {
+            DataView dv = (DataView)SqlDataSource5.Select(DataSourceSelectArguments.Empty);
+            if (dv.Count > 0)
+                foreach (DataRowView drow in dv)
+                {
+                    lblMessage.Text = "Hasta bulundu!";
+                    txtName.Text = drow["name"].ToString();
+                    txtSurname.Text = drow["surname"].ToString();
+                    txtBirth.Text = drow["birth_year"].ToString();
+                    listInsurance.SelectedValue = drow["insurance_id"].ToString();
+                    pnlHastaForm.Visible = true;
+                }
+            else
+            {
+                lblMessage.Text = "Hasta kayıtlı değil.";
+                pnlHastaForm.Visible = true;
+            }
+        }
+
+        protected void btnSave_Click(object sender, EventArgs e)
+        {
+            String tc = txtTc.Text;
+            String name = txtName.Text;
+            String surname = txtSurname.Text;
+            String birth = txtBirth.Text;
+            String ins = listInsurance.SelectedValue;
+            if (lblMessage.Text.Equals("Hasta kayıtlı değil."))
+            {
+                SqlCommand cmdSave = new SqlCommand("insert into patients (tc,name,surname,birth_year,insurance_type) "+
+                    "VALUES ('"+tc+"','"+name+"','"+surname+"',"+birth+","+ins+")", baglantı);
+                int rowsAffected = cmdSave.ExecuteNonQuery();
+                if (rowsAffected == 1)
+                {
+                    lblMessage.Text = "Hasta Kaydedildi! ";
+                }
+                else
+                {
+                    lblMessage.Text = "Bişeyler yanlış gitti!";
+                    return;
+                }
+            }
+
+            String doc_id = listDoctors.SelectedValue;
+            String patient_id = "0";
+            DataView dv = (DataView)SqlDataSource5.Select(DataSourceSelectArguments.Empty);
+            if (dv.Count > 0)
+                foreach (DataRowView drow in dv)
+                {
+                    patient_id = drow["id"].ToString();
+                }
+            else{
+                lblMessage.Text="Hata";
+            }
+            String date = Calendar1.SelectedDate.ToString("yyyyMMdd");
+            String time = rButtonsHours.SelectedValue.ToString()+":00";
+
+            SqlCommand cmdAppointment = new SqlCommand("insert into appointments (doctor_id,patient_id,date,time)" +
+            "VALUES ("+doc_id+","+patient_id+",convert(date,'"+date+"'),convert(time,'"+time+"'));", baglantı);
+
+            int rowsAffected1 = cmdAppointment.ExecuteNonQuery();
+            if (rowsAffected1 == 1)
+            {
+                lblMessage.Text += "Randevu girildi! ";
+            }
+            else
+            {
+                lblMessage.Text = "Bişeyler yanlış gitti!";
+                return;
+            }
+            
+         }
     }
 }
