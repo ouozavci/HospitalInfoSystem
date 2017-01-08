@@ -60,6 +60,7 @@
   <ItemGroup>
     <Content Include="admin\manageDoctors.aspx" />
     <Content Include="admin\managePersonal.aspx" />
+    <Content Include="doctor\completeExam.aspx" />
     <Content Include="doctor\doctor_panel.aspx" />
     <Content Include="login\admin_login.aspx" />
     <Content Include="admin\admin_panel.aspx" />
@@ -84,6 +85,13 @@
     </Compile>
     <Compile Include="admin\managePersonal.aspx.designer.cs">
       <DependentUpon>managePersonal.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="doctor\completeExam.aspx.cs">
+      <DependentUpon>completeExam.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="doctor\completeExam.aspx.designer.cs">
+      <DependentUpon>completeExam.aspx</DependentUpon>
     </Compile>
     <Compile Include="doctor\doctor_panel.aspx.cs">
       <DependentUpon>doctor_panel.aspx</DependentUpon>
