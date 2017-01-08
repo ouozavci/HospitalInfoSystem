@@ -189,17 +189,25 @@ namespace HospInfoSystem.personal
 
             SqlCommand cmdAppointment = new SqlCommand("insert into appointments (doctor_id,patient_id,date,time)" +
             "VALUES ("+doc_id+","+patient_id+",convert(date,'"+date+"'),convert(time,'"+time+"'));", baglantı);
-
-            int rowsAffected1 = cmdAppointment.ExecuteNonQuery();
-            if (rowsAffected1 == 1)
+            int rowsAffected1=0;
+            try
             {
-                lblMessage.Text += "Randevu girildi! ";
+                rowsAffected1 = cmdAppointment.ExecuteNonQuery();
+                if (rowsAffected1 == 1)
+                {
+                    lblMessage.Text += "Randevu girildi! ";
+                }
+                else
+                {
+                    lblMessage.Text = "Bişeyler yanlış gitti!";
+                    return;
+                }
             }
-            else
+            catch (Exception ex)
             {
-                lblMessage.Text = "Bişeyler yanlış gitti!";
-                return;
+                lblMessage.Text = ex.Message;
             }
+          
             
          }
     }

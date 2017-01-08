@@ -26,6 +26,7 @@
         </tr>
     </table> 
     </div>
-    </form>
+        Default: Username: admin<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Password: admin</form>
 </body>
 </html>
