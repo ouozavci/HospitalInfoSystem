@@ -117,6 +117,8 @@ namespace HospInfoSystem.personal
                 }
 
             pnlHours.Visible = true;
+            pnlHastaTc.Visible = false;
+            pnlHastaForm.Visible = false;
         }
 
         protected void rButtonsHours_SelectedIndexChanged(object sender, EventArgs e)
@@ -140,6 +142,10 @@ namespace HospInfoSystem.personal
             else
             {
                 lblMessage.Text = "Hasta kayıtlı değil.";
+                txtName.Text = "";
+                txtSurname.Text = "";
+                txtBirth.Text = "";
+                listInsurance.SelectedIndex = 0;
                 pnlHastaForm.Visible = true;
             }
         }
