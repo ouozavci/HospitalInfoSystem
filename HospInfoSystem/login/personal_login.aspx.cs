@@ -30,7 +30,12 @@ namespace HospInfoSystem
             if (rd.HasRows)
             {
                 lblResult.Text = "Giriş Başarılı";
-                Response.Redirect("../personal_panel.aspx");
+                Session["isDoctor"] = false;
+                Session["isAdmin"] = false;
+                Session["isPersonal"] = true;
+                rd.Read();
+                Session["personal_id"] = (int)rd["id"];
+                Response.Redirect("../personal/personal_panel.aspx");
             }
             else
             {
